@@ -43,9 +43,18 @@ FROM customer JOIN rental USING(customer_id)
 GROUP BY customer_id
 HAVING COUNT(rental_id) >= 30;
 -- 10:  Para cada cliente, muestra el total de pagos (suma en euros/dólares) que ha realizado.
-
+SELECT CONCAT(first_name, ' ', last_name) AS nombre, SUM(amount) AS importe_total_pagado
+FROM customer JOIN payment USING(customer_id)
+GROUP BY customer_id;
 -- 11:  Muestra los clientes cuyo importe total pagado es al menos 200.
+SELECT CONCAT(first_name, ' ', last_name) AS nombre, SUM(amount) AS importe_total_pagado
+FROM customer JOIN payment USING(customer_id)
+GROUP BY customer_id
+HAVING SUM(amount) >= 200;
 -- 12:  Para cada empleado (staff), muestra el número de pagos que ha procesado.
+SELECT CONCAT(first_name,' ',last_name) AS nombre, COUNT(payment_id) AS numero_de_pagos
+FROM payment JOIN staff USING(staff_id)
+GROUP BY staff_id;
 -- 13:  Para cada empleado, muestra el importe total procesado.
 -- 14:  Para cada tienda, cuenta cuántos artículos de inventario tiene.
 -- 15:  Para cada tienda, cuenta cuántos clientes tiene asignados.
