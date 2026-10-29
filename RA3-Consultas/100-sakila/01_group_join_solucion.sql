@@ -56,13 +56,37 @@ SELECT CONCAT(first_name,' ',last_name) AS nombre, COUNT(payment_id) AS numero_d
 FROM payment JOIN staff USING(staff_id)
 GROUP BY staff_id;
 -- 13:  Para cada empleado, muestra el importe total procesado.
+SELECT CONCAT(first_name, ' ', last_name), SUM(amount)
+FROM staff JOIN payment USING(staff_id)
+GROUP BY staff_id;
 -- 14:  Para cada tienda, cuenta cuántos artículos de inventario tiene.
+SELECT store_id, COUNT(inventory_id)
+FROM inventory JOIN store USING(store_id)
+GROUP BY store_id;
 -- 15:  Para cada tienda, cuenta cuántos clientes tiene asignados.
+SELECT store_id, COUNT(customer_id)
+FROM customer JOIN store USING(store_id)
+GROUP BY store_id;
 -- 16:  Para cada tienda, cuenta cuántos empleados (staff) tiene asignados.
+SELECT store_id, COUNT(staff_id)
+FROM store JOIN staff USING(store_id)
+GROUP BY store_id;
 -- 17:  Para cada dirección (address), cuenta cuántas tiendas hay ubicadas ahí (debería ser 0/1 en datos estándar).
+SELECT address_id, address, COUNT(store_id) AS numero_de_tiendas
+FROM address JOIN store USING(address_id)
+GROUP BY address_id;
 -- 18:  Para cada dirección, cuenta cuántos empleados residen en esa dirección.
+SELECT address_id, address, COUNT(staff_id) AS empleados_residiendo_aqui
+FROM address JOIN staff USING(address_id)
+GROUP BY address_id;
 -- 19:  Para cada dirección, cuenta cuántos clientes residen ahí.
+SELECT address_id, address, COUNT(customer_id) AS clientes_residiendo_aqui
+FROM address JOIN customer USING(address_id)
+GROUP BY address_id;
 -- 20:  Para cada ciudad, cuenta cuántas direcciones hay registradas.
+SELECT city_id, city, COUNT(address_id) AS numero_de_direcciones
+FROM address JOIN city USING(city_id)
+GROUP BY city_id;
 -- 21:  Para cada país, cuenta cuántas ciudades existen.
 -- 22:  Para cada idioma, calcula la duración media de películas y muestra solo los idiomas con media entre 90 y 120 inclusive.
 -- 23:  Para cada película, cuenta el número de alquileres que se han hecho de cualquiera de sus copias (usando inventario).
