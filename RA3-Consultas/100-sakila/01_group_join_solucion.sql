@@ -136,9 +136,16 @@ GROUP BY store_id;
 -- SECCIÓN B) 30 CONSULTAS CON JOIN DE 3 TABLAS
 -- ==============================================
 -- 31:  Para cada actor, cuenta cuántas películas tiene y muestra solo los que superan 15 películas.
-
+SELECT actor_id, CONCAT(first_name, ' ', last_name), COUNT(film_id)
+FROM actor JOIN film_actor USING(actor_id)
+GROUP BY actor_id
+HAVING COUNT(film_id) > 15;
 -- 32:  Para cada categoría (por nombre), cuenta cuántas películas hay en esa categoría.
+SELECT category_id, name, COUNT(film_id)
+FROM category JOIN film_category USING(category_id)
+GROUP BY category_id;
 -- 33:  Para cada película, cuenta cuántos alquileres se han hecho de sus copias.
+
 -- 34:  Para cada cliente, suma el importe pagado en 2005 y filtra clientes con total >= 150.
 -- 35:  Para cada tienda, suma el importe cobrado por todos sus empleados.
 -- 36:  Para cada ciudad, cuenta cuántos empleados residen ahí (staff -> address -> city).
